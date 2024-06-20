@@ -39,7 +39,7 @@ The Canary channel is recommended, because it offers the latest experimental API
 
 *  **Microsoft Edge Preview Channels:** These channels (Edge Beta, Edge Dev, or Edge Canary) contain the necessary Microsoft Edge binaries.  These channels allow your app to run and render using the experimental APIs.
 
-For more information about how SDK versions interact with the WebView2 Runtime and the Microsoft Edge preview channels, see [Understand the different WebView2 SDK versions](../concepts/versioning.md).
+For more information about how SDK versions interact with the WebView2 Runtime and the Microsoft Edge preview channels, see [Prerelease and Release SDKs for WebView2](../concepts/versioning.md).
 
 
 <!-- ------------------------------ -->
