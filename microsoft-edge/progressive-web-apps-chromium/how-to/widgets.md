@@ -254,6 +254,8 @@ Service workers have access to the `self.widgets` object and several widget even
 
 The following sections provide code examples. For a reference of the API, see the [service worker API reference](#service-worker-api-reference).
 
+
+<!-- ------------------------------ -->
 #### Render widgets on installation
 
 When a PWA is installed, the widgets that the app defines in its manifest are added to the widgets dashboard but not installed yet. A widget is only installed when the user chooses to add the widget from the dashboard.
@@ -284,9 +286,11 @@ async function renderWidget(widget) {
 }
 ```
 
+
+<!-- ------------------------------ -->
 #### Update widgets on service worker updates
 
-When the service worker code changes in a PWA, the browser detects that change, installs the new service worker, and then later activates it.
+When the service worker code changes in a PWA, the browser detects that change, installs the new service worker,<!-- todo: review: is install & service worker sufficiently decoupled? --> and then later activates it.
 
 When this happens, it's important to update any widget instances that may already be running. Widgets may have been installed before the service worker `activate` event is emitted. To avoid displaying empty widgets, update your widgets when the `activate` event occurs
 
@@ -313,6 +317,8 @@ async function updateWidgets() {
 }
 ```
 
+
+<!-- ------------------------------ -->
 #### Handle widget actions
 
 If the widget template contains actions, users can run those actions by clicking buttons in the rendered widget. For information about how to define actions in a template, see [Define widget actions](#define-widget-actions).
@@ -338,6 +344,8 @@ Note that the `action` property of the `widgetEvent` object passed to the event 
 
 For more information about the `widgetclick` event and what information you can access from it, see the [Service Worker API reference](#service-worker-api-reference) below.
 
+
+<!-- ------------------------------ -->
 #### Update widgets on application changes
 
 In previous sections, you learnt how to update widgets when specific widget events, widget actions, and service worker updates occurred. It can also be useful to update widgets when something happens in the application, or when a push notification occurs, or periodically.
@@ -428,7 +436,7 @@ The PWAmp widget displays the current song and buttons to play the previous or n
 <!-- ====================================================================== -->
 <!-- widgets are too early in the making for MDN. But there is enough complexity with the APIs that a reference doc is needed.
 For now we are documenting all functions and objects in this section. When widgets become standard, move this to MDN and remove the section. -->
-## Service Worker API reference
+## Service worker API reference
 
 The service worker global object (or [ServiceWorkerGlobalScope](https://developer.mozilla.org/docs/Web/API/ServiceWorkerGlobalScope)) contains a `widgets` attribute that exposes the following Promise-based methods:
 
@@ -450,6 +458,8 @@ The service worker global object also defines the following events:
 
 For more information about the objects that are provided with these events, see the [widgetEvent object](#widgetevent-object) and the [widgetClickEvent object](#widgetclickevent-object) definitions below.
 
+
+<!-- ------------------------------ -->
 #### widget object
 
 Each widget is represented as a `widget` object, which contains the following properties:
@@ -458,6 +468,8 @@ Each widget is represented as a `widget` object, which contains the following pr
 * `definition`: A [widgetDefinition object](#widgetdefinition-object).
 * `instances`: An array of [widgetInstance objects](#widgetinstance-object) representing the current state of each instance of the widget.
 
+
+<!-- ------------------------------ -->
 #### widgetOptions object
 
 When using `matchAll(options)` to get multiple widgets, a `widgetOptions` object is necessary to filter which widgets to return. The `widgetOptions` object contains the following properties, all of which are optional:
@@ -468,6 +480,8 @@ When using `matchAll(options)` to get multiple widgets, a `widgetOptions` object
 * `instanceId`: A string used to filter the returned widgets by instance ID.
 * `hostId`: A string used to filter the returned widgets by widget host ID.
 
+
+<!-- ------------------------------ -->
 #### widgetPayload object
 
 When creating or updating a widget instance, the service worker must send the template and the data that are necessary to populate the widget. The template and data are called the _payload_. The `widgetPayload` object contains the following properties:
@@ -475,6 +489,8 @@ When creating or updating a widget instance, the service worker must send the te
 * `template`: The template, as a string, to use to render the widget. This will be the stringified JSON of an Adaptive Card template.
 * `data`: The data, as a string, to use with the widget template.  This data can be stringified JSON data.
 
+
+<!-- ------------------------------ -->
 #### widgetInstance object
 
 This object represents a given instance of a widget in a widget host and contains the following properties:
@@ -484,10 +500,14 @@ This object represents a given instance of a widget in a widget host and contain
 * `updated`: A `Date` object that represents the last time data was sent to the instance.
 * `payload`: A [widgetPayload object](#widgetpayload-object) that represents the last payload that was sent to this instance.
 
+
+<!-- ------------------------------ -->
 #### widgetDefinition object
 
 This object represents the original definition of the widget, found in the PWA manifest file. The properties of this object match the properties that are listed in [Define widgets](#define-widgets), above.
 
+
+<!-- ------------------------------ -->
 #### widgetEvent object
 
 This object is passed as an argument to listeners of service worker widget events of type `widgetinstall`, `widgetuninstall`, and `widgetresume`.
@@ -500,6 +520,8 @@ For the `widgetinstall`, `widgetuninstall`, and `widgetresume` event types, the 
 | `instanceId` | The widget instance ID. | `String` |
 | `hostId` | The widget host ID. | `String` |
 
+
+<!-- ------------------------------ -->
 #### widgetClickEvent object
 
 This object is passed as an argument to listeners of service worker widget events of type `widgetclick`. You can open your app's window in response to the `widgetclick` event, by using `clients.openWindow()`.
